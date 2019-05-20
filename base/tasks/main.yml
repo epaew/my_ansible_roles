@@ -28,7 +28,7 @@
 
 - name: clone epaew/dotfiles.git
   git:
-    repo: https://github.com/epaew/dotfiles.git
+    repo: git@github.com:epaew/dotfiles.git  
     dest: "{{ global.dirs.dotfiles }}"
 - name: create symlink of each dotfiles
   file:
