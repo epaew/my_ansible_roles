@@ -1,0 +1,17 @@
+---
+apt:
+  packages:
+    - neovim
+    - python3-pip
+  repositories:
+    - ppa:neovim-ppa/stable
+pip:
+  packages:
+    - neovim
+dirs:
+  dein: "~/.cache/dein/repos/github.com/Shougo/dein.vim"
+  config:
+    base: "~/.config"
+    src: "~/dotfiles/config/nvim"
+    dest: "~/.config/nvim"
+
