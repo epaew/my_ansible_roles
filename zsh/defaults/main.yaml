@@ -1,0 +1,6 @@
+---
+dirs:
+  zsh_completions: "~/.zsh-completions"
+  config:
+    src: "~/dotfiles/.zshenv"
+    dest: "~/.zshenv"

@@ -1,3 +1,4 @@
+---
 - name: apt update/upgrade
   become: yes
   apt:
@@ -64,6 +65,19 @@
     dest: "{{ dirs.home }}/{{ item }}"
     remote_src: yes
   with_items: "{{ dotfiles.copies }}"
+
+- name: mkdir for fzf
+  file:
+    path: "{{ dirs.fzf }}"
+    state: directory
+- name: clone junegunn/fzf.git
+  git:
+    repo: git@github.com:junegunn/fzf.git
+    dest: "{{ dirs.fzf }}"
+- name: install fzf
+  shell: "{{ dirs.fzf }}/install"
+  args:
+    creates: "{{ dirs.fzf }}/bin/fzf"
 
 - name: set bell style none
   copy:

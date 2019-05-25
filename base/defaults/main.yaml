@@ -9,6 +9,7 @@ apt:
     - tig
 dirs:
   dotfiles: ~/dotfiles
+  fzf: ~/.cache/dein/repos/github.com/junegunn/fzf
   home: "~"
 dotfiles:
   links:
