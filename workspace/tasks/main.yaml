@@ -1,0 +1,12 @@
+---
+- name: mkdir ~/workspace
+  file:
+    path: "{{ dirs.workspace }}"
+    state: directory
+- name: git checkouts
+  git:
+    repo: "{{ item.url }}"
+    dest: "{{ dirs.workspace }}/{{ item.dest }}"
+    depth: "{{ item.depth }}"
+  with_items:
+    - "{{ repos }}"
