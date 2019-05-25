@@ -1,0 +1,29 @@
+---
+# This role does not work on WSL1
+- name: apt add docker repository key
+  become: yes
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+- name: apt add docker repository
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+  with_items:
+    - "{{ apt.repos }}"
+- name: apt install docker-ce
+  become: yes
+  apt:
+    name: "{{ apt.packages }}"
+    state: latest
+- name: add user to docker group
+  become: yes
+  user:
+    name: "{{ global.user.name }}"
+    groups: docker
+    append: yes
+- name: Enables docker daemon to start on boot
+  become: yes
+  systemd:
+    name: docker
+    enabled: yes
+    masked: no

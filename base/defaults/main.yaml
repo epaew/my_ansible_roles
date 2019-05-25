@@ -1,7 +1,6 @@
 apt:
   packages:
     - build-essential
-    - docker
     - git
     - language-pack-ja
     - linux-headers-generic
