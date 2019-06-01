@@ -1,0 +1,12 @@
+apt:
+  packages:
+    - postgresql-10
+    - libpq-dev
+pip:
+  packages:
+    - psycopg2
+postgres:
+  user:
+    name: "{{ global.user.name }}"
+    password: password
+  dbs: []

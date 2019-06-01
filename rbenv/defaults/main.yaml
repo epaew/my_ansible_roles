@@ -1,0 +1,13 @@
+dirs:
+  rbenv:
+    dest:  "~/.rbenv"
+    plugins: "~/.rbenv/plugins"
+  ruby_build: "~/.rbenv/plugins/ruby-build"
+ruby_version: "2.6.3"
+gem:
+  packages:
+    - bundler
+    - dotenv
+    - pry
+    - rake
+    - rubocop
