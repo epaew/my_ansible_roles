@@ -7,13 +7,13 @@
     state: latest
 - name: create symlink of zshenv
   file:
-    src: "{{ dirs.config.src }}"
-    dest: "{{ dirs.config.dest }}"
+    src: "{{ zsh.dirs.config.src }}"
+    dest: "{{ zsh.dirs.config.dest }}"
     state: link
 - name: git clone zsh-completions
   git:
     repo: https://github.com/zsh-users/zsh-completions.git
-    dest: "{{ dirs.zsh_completions }}"
+    dest: "{{ zsh.dirs.zsh_completions }}"
     depth: 1
 - name: set zsh as login shell
   become: yes

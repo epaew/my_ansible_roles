@@ -5,35 +5,35 @@
   apt_repository:
     repo: "{{ item }}"
   with_items:
-    - "{{ apt.repositories }}"
+    - "{{ neovim.apt.repositories }}"
 - name: apt install neovim
   become: yes
   apt:
-    name: "{{ apt.packages }}"
+    name: "{{ neovim.apt.packages }}"
     state: latest
 - name: pip3 install neovim
   pip:
-    name: "{{ pip.packages }}"
+    name: "{{ neovim.pip.packages }}"
     executable: pip3
     extra_args: --user
     state: latest
 - name: mkdir ~/.cache/dein/repos/github.com/Shougo
   file:
-    path: "{{ dirs.dein }}"
+    path: "{{ neovim.dirs.dein }}"
     state: directory
 - name: git clone dein
   git:
     repo: https://github.com/Shougo/dein.vim.git
-    dest: "{{ dirs.dein }}"
+    dest: "{{ neovim.dirs.dein }}"
     depth: 1
 - name: mkdir ~/.config
   file:
-    path: "{{ dirs.config.base }}"
+    path: "{{ neovim.dirs.config.base }}"
     state: directory
 - name: create symlink of nvim configs
   file:
-    src: "{{ dirs.config.src }}"
-    dest: "{{ dirs.config.dest }}"
+    src: "{{ neovim.dirs.config.src }}"
+    dest: "{{ neovim.dirs.config.dest }}"
     state: link
 - name: install nvim plugins
   shell: nvim -c ":silent! call dein#install() | :q"

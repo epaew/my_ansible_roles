@@ -1,11 +1,11 @@
 - name: apt install
   become: yes
   apt:
-    name: "{{ apt.packages }}"
+    name: "{{ postgres.apt.packages }}"
     state: latest
 - name: pip install
   pip:
-    name: "{{ pip.packages }}"
+    name: "{{ postgres.pip.packages }}"
     extra_args: --user
     state: latest
 - name: create database

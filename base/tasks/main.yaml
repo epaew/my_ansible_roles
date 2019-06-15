@@ -10,7 +10,7 @@
 - name: apt install common packages
   become: yes
   apt:
-    name: "{{ apt.packages }}"
+    name: "{{ base.apt.packages }}"
     state: latest
 
 - name: generate ssh key pair
@@ -28,7 +28,7 @@
     body_format: json
     headers:
       Accept: "application/vnd.github.v3+json"
-      Authorization: "token {{ secrets.github_token }}"
+      Authorization: "token {{ base.secrets.github_token }}"
     method: POST
     status_code: 201,422
     url: https://api.github.com/user/keys
@@ -37,7 +37,7 @@
     body: "{{ api_body.stdout }}"
     body_format: json
     headers:
-      Private-Token: "{{ secrets.gitlab_token }}"
+      Private-Token: "{{ base.secrets.gitlab_token }}"
     method: POST
     status_code: 201,400
     url: https://gitlab.com/api/v4/user/keys
@@ -47,37 +47,37 @@
     key: "{{ lookup('pipe', 'ssh-keyscan -H ' + item) }}"
     hash_host: yes
   with_items:
-    - "{{ known_hosts.domains }}"
+    - "{{ base.known_hosts.domains }}"
 
 - name: clone epaew/dotfiles.git
   git:
-    repo: git@github.com:epaew/dotfiles.git  
-    dest: "{{ dirs.dotfiles }}"
+    repo: git@github.com:epaew/dotfiles.git
+    dest: "{{ base.dirs.dotfiles }}"
 - name: create symlink of each dotfiles
   file:
-    src: "{{ dirs.dotfiles }}/{{ item }}"
-    dest: "{{ dirs.home }}/{{ item }}"
+    src: "{{ base.dirs.dotfiles }}/{{ item }}"
+    dest: "{{ base.dirs.home }}/{{ item }}"
     state: link
-  with_items: "{{ dotfiles.links }}"
+  with_items: "{{ base.dotfiles.links }}"
 - name: create copy of each dotfiles
   copy:
-    src: "{{ dirs.dotfiles }}/{{ item }}"
-    dest: "{{ dirs.home }}/{{ item }}"
+    src: "{{ base.dirs.dotfiles }}/{{ item }}"
+    dest: "{{ base.dirs.home }}/{{ item }}"
     remote_src: yes
-  with_items: "{{ dotfiles.copies }}"
+  with_items: "{{ base.dotfiles.copies }}"
 
 - name: mkdir for fzf
   file:
-    path: "{{ dirs.fzf }}"
+    path: "{{ base.dirs.fzf }}"
     state: directory
 - name: clone junegunn/fzf.git
   git:
     repo: git@github.com:junegunn/fzf.git
-    dest: "{{ dirs.fzf }}"
+    dest: "{{ base.dirs.fzf }}"
 - name: install fzf
-  shell: "{{ dirs.fzf }}/install"
+  shell: "{{ base.dirs.fzf }}/install"
   args:
-    creates: "{{ dirs.fzf }}/bin/fzf"
+    creates: "{{ base.dirs.fzf }}/bin/fzf"
 
 - name: set bell style none
   copy:

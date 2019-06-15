@@ -1,7 +1,8 @@
 ---
-dirs:
-  tmux_plugins: "~/.tmux/plugins"
-  tpm: "~/.tmux/plugins/tpm"
-  config:
-    src: "~/dotfiles/.tmux.conf"
-    dest: "~/.tmux.conf"
+tmux:
+  dirs:
+    tmux_plugins: "~/.tmux/plugins"
+    tpm: "~/.tmux/plugins/tpm"
+    config:
+      src: "~/dotfiles/.tmux.conf"
+      dest: "~/.tmux.conf"

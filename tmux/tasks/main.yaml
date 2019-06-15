@@ -7,15 +7,15 @@
     state: latest
 - name: mkdir ~/.tmux/plugins
   file:
-    path: "{{ dirs.tmux_plugins }}"
+    path: "{{ tmux.dirs.tmux_plugins }}"
     state: directory
 - name: git clone tpm
   git:
     repo: https://github.com/tmux-plugins/tpm.git
-    dest: "{{ dirs.tpm }}"
+    dest: "{{ tmux.dirs.tpm }}"
     depth: 1
 - name: create symlink of tmux.conf
   file:
-    src: "{{ dirs.config.src }}"
-    dest: "{{ dirs.config.dest }}"
+    src: "{{ tmux.dirs.config.src }}"
+    dest: "{{ tmux.dirs.config.dest }}"
     state: link

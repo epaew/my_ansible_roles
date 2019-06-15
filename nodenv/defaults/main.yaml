@@ -1,10 +1,12 @@
-dirs:
-  nodenv:
-    dest:  "~/.nodenv"
-    plugins: "~/.nodenv/plugins"
-  node_build: "~/.nodenv/plugins/node-build"
-node_version: "10.15.3"
-npm:
-  packages:
-    - name: yarn
-      version: "1.16.0"
+---
+nodenv:
+  dirs:
+    nodenv:
+      dest:  "~/.nodenv"
+      plugins: "~/.nodenv/plugins"
+    node_build: "~/.nodenv/plugins/node-build"
+  node_version: "10.16.0"
+  npm:
+    packages:
+      - name: yarn
+        version: "1.16.0"
