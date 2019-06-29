@@ -11,7 +11,7 @@
   apt:
     name: "{{ neovim.apt.packages }}"
     state: latest
-- name: pip3 install neovim
+- name: install pip3 packages for neovim
   pip:
     name: "{{ neovim.pip.packages }}"
     executable: pip3
