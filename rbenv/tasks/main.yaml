@@ -7,6 +7,13 @@
       - libssl-dev
       - zlib1g-dev
     state: latest
+- name: create symlink of configs
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+      - "{{ rbenv.configs }}"
 - name: git clone rbenv
   git:
     repo: https://github.com/rbenv/rbenv.git
@@ -20,11 +27,13 @@
   file:
     path: "{{ rbenv.dirs.rbenv.plugins }}"
     state: directory
-- name: git clone ruby-build
+- name: git clone rbenv plugins
   git:
-    repo: https://github.com/rbenv/ruby-build.git
-    dest: "{{ rbenv.dirs.ruby_build }}"
+    repo: "{{ item.repo }}"
+    dest: "{{ rbenv.dirs.rbenv.plugins }}/{{ item.name }}"
     depth: 1
+  with_items:
+      - "{{ rbenv.plugins }}"
 - name: rbenv install ruby
   shell: |
     PATH="$HOME/.rbenv/bin:$PATH"
@@ -33,12 +42,4 @@
     rbenv global {{ rbenv.ruby_version }}
   args:
     creates: "{{ rbenv.dirs.rbenv.dest }}/versions/{{ rbenv.ruby_version }}"
-  when: rbenv.ruby_version is defined
-- name: install gems
-  gem:
-    name: "{{ item }}"
-    executable: "{{ rbenv.dirs.rbenv.dest }}/versions/{{ rbenv.ruby_version }}/bin/gem"
-    state: latest
-  with_items:
-      - "{{ rbenv.gem.packages }}"
   when: rbenv.ruby_version is defined

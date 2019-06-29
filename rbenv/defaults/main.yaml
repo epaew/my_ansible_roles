@@ -4,12 +4,16 @@ rbenv:
     rbenv:
       dest:  "~/.rbenv"
       plugins: "~/.rbenv/plugins"
-    ruby_build: "~/.rbenv/plugins/ruby-build"
+  configs:
+    - src: "~/dotfiles/.gemrc"
+      dest: "~/.gemrc"
+    - src: "~/dotfiles/.pryrc"
+      dest: "~/.pryrc"
+    - src: "~/dotfiles/rbenv/default-gems"
+      dest: "~/.rbenv/default-gems"
+  plugins:
+    - name: "ruby-build"
+      repo: "https://github.com/rbenv/ruby-build.git"
+    - name: "rbenv-default-gems"
+      repo: "https://github.com/rbenv/rbenv-default-gems.git"
   ruby_version: "2.6.3"
-  gem:
-    packages:
-      - bundler
-      - dotenv
-      - pry
-      - rake
-      - rubocop
