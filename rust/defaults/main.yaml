@@ -1,0 +1,6 @@
+---
+rust:
+  dirs:
+    rustup_init: "/tmp/rustup-init.sh"
+  urls:
+    rustup_init: "https://sh.rustup.rs"

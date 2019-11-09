@@ -1,0 +1,13 @@
+---
+- name: check rustup install status
+  shell: type rustup
+  register: type_rustup
+  failed_when: false
+- name: fetch rustup installer
+  get_url:
+    url: "{{ rust.urls.rustup_init }}"
+    dest: "{{ rust.dirs.rustup_init }}"
+  when: type_rustup.rc != 0
+- name: install rustup
+  command: "sh {{ rust.dirs.rustup_init }} -y -q"
+  when: type_rustup.rc != 0

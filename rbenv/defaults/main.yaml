@@ -2,7 +2,7 @@
 rbenv:
   dirs:
     rbenv:
-      dest:  "~/.rbenv"
+      dest: "~/.rbenv"
       plugins: "~/.rbenv/plugins"
   configs:
     - src: "~/dotfiles/.gemrc"
