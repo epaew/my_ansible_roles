@@ -23,7 +23,13 @@
     append: yes
 - name: Enables docker daemon to start on boot
   become: yes
-  systemd:
+  service:
     name: docker
     enabled: yes
-    masked: no
+    state: restarted
+- name: install docker-compose from pip3
+  pip:
+    name: docker-compose
+    executable: pip3
+    extra_args: --user
+    state: latest
