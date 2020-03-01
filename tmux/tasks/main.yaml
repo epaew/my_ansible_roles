@@ -19,3 +19,5 @@
     src: "{{ tmux.dirs.config.src }}"
     dest: "{{ tmux.dirs.config.dest }}"
     state: link
+- name: install tmux plugins via tpm
+  shell: "{{ tmux.dirs.tpm }}/bin/install_plugins"
