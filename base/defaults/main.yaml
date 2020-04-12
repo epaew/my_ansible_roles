@@ -15,7 +15,6 @@ base:
     home: "~"
   dotfiles:
     links:
-      - .pryrc
       - .tigrc
     copies:
       - .gitconfig

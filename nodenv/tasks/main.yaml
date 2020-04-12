@@ -31,7 +31,6 @@
     # executable: "{{ nodenv.dirs.nodenv.dest }}/versions/{{ nodenv.node_version }}/bin/npm"
     global: yes
     state: latest
-    version: "{{ item.version }}"
   environment:
     PATH: "{{ ansible_env.HOME }}/.nodenv/versions/{{ nodenv.node_version }}/bin:{{ ansible_env.PATH }}"
   with_items:

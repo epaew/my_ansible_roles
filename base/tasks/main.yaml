@@ -82,7 +82,8 @@
 - name: set bell style none
   copy:
     dest: ~/.inputrc
-    content: "set bell-style none"
+    content: |
+      set bell-style none
 - name: set global git user name
   git_config:
     name: user.name
