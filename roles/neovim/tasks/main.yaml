@@ -1,40 +1,20 @@
 ---
-# https://github.com/Microsoft/WSL/issues/3286'
-- name: apt add neovim repository
-  become: yes
-  apt_repository:
-    repo: "{{ item }}"
-  with_items:
-    - "{{ neovim.apt.repositories }}"
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < "20"
-- name: apt install neovim
-  become: yes
-  apt:
-    name: "{{ neovim.apt.packages }}"
-    state: latest
-- name: install pip3 packages for neovim
+- include: apt.yaml
+  when: ansible_distribution in ["Debian", "Ubuntu"]
+
+- name: pip3 install pynvim
   pip:
     name: pynvim
     executable: /usr/bin/pip3 # Use pip3 installed via apt
     extra_args: --user
     state: latest
-- name: mkdir ~/.cache/dein/repos/github.com/Shougo
+
+- name: mkdir for dein
   file:
-    path: "{{ neovim.dirs.dein }}"
+    path: "{{ dein.dirs.dest }}"
     state: directory
 - name: git clone dein
   git:
-    repo: https://github.com/Shougo/dein.vim.git
-    dest: "{{ neovim.dirs.dein }}"
-    depth: 1
-- name: mkdir ~/.config
-  file:
-    path: "{{ neovim.dirs.config.base }}"
-    state: directory
-- name: create symlink of nvim configs
-  file:
-    src: "{{ neovim.dirs.config.src }}"
-    dest: "{{ neovim.dirs.config.dest }}"
-    state: link
-- name: install nvim plugins
-  shell: nvim -c ":silent! call dein#install() | :q"
+    depth: "{{ dein.repo.depth }}"
+    dest: "{{ dein.dirs.dest }}"
+    repo: "{{ dein.repo.url }}"

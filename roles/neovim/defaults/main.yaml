@@ -1,14 +1,7 @@
 ---
-neovim:
-  apt:
-    packages:
-      - neovim
-      - python3-pip
-    repositories:
-      - ppa:neovim-ppa/stable
+dein:
   dirs:
-    dein: "~/.cache/dein/repos/github.com/Shougo/dein.vim"
-    config:
-      base: "~/.config"
-      src: "~/dotfiles/config/nvim"
-      dest: "~/.config/nvim"
+    dest: ~/.cache/dein/repos/github.com/Shougo/dein.vim
+  repo:
+    depth: 1
+    url: https://github.com/Shougo/dein.vim.git
