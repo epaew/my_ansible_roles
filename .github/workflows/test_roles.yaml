@@ -26,6 +26,7 @@ jobs:
             version: focal
         role:
           - common
+          # - docker # something wrong...
           - fzf
           - nodenv
           - rust

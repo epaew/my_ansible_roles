@@ -1,14 +1,15 @@
 ---
 docker:
   apt:
-    packages:
-      - containerd.io
-      - docker-ce
-      - docker-ce-cli
-      - python3-pip
+    repository_key_urls:
+      debian: https://download.docker.com/linux/debian/gpg
+      ubuntu: https://download.docker.com/linux/ubuntu/gpg
     repositories:
-      Ubuntu:
-        "18":
-          - "deb https://download.docker.com/linux/ubuntu bionic stable"
-        "20":
-          - "deb https://download.docker.com/linux/ubuntu focal stable"
+      debian:
+        "8": deb https://download.docker.com/linux/debian jessie stable
+        "9": deb https://download.docker.com/linux/debian stretch stable
+        "10": deb https://download.docker.com/linux/debian buster stable
+      ubuntu:
+        "16": deb https://download.docker.com/linux/ubuntu xenial stable
+        "18": deb https://download.docker.com/linux/ubuntu bionic stable
+        "20": deb https://download.docker.com/linux/ubuntu focal stable

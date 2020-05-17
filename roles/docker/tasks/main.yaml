@@ -1,37 +1,43 @@
 ---
 # This role does not work on WSL1
-- name: apt install docker-ce
-  become: yes
-  apt:
-    name: "{{ docker.apt.packages }}"
-    state: latest
-- name: apt add docker repository key
-  become: yes
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-- name: apt add docker repository
-  become: yes
-  apt_repository:
-    repo: "{{ item }}"
-  with_items:
-    - "{{ docker.apt.repositories[ansible_distribution][ansible_distribution_major_version] }}"
-- name: apt install docker-ce
-  become: yes
-  apt:
-    name: "{{ docker.apt.packages }}"
-    state: latest
+- include: "{{ ansible_distribution }}.yaml"
+
+- debug:
+    var: ansible_user_id
 - name: add user to docker group
   become: yes
   user:
-    name: "{{ global.user.name }}"
+    name: "{{ ansible_user_id }}"
     groups: docker
     append: yes
-- name: Enables docker daemon to start on boot
+
+- name: check current environment is WSL
+  shell: uname -r | grep -iq microsoft
+  register: is_wsl
+  failed_when: false
+- name: check systemctl is callable
+  shell: type systemctl
+  register: systemctl_present
+  failed_when: false
+- name: Enables docker daemon to start on boot (service)
   become: yes
   service:
     name: docker
     enabled: yes
     state: restarted
+  when:
+    - is_wsl.rc != "0"
+    - systemctl_present != "0"
+- name: Enables docker daemon to start on boot (systemd)
+  become: yes
+  systemd:
+    name: docker
+    enabled: yes
+    state: restarted
+  when:
+    - is_wsl.rc != "0"
+    - systemctl_present == "0"
+
 - name: install docker-compose from pip3
   pip:
     name: docker-compose
