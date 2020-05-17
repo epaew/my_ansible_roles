@@ -7,7 +7,6 @@
 - nodenv
 - rbenv
 - rust
-- tmux
 - zsh
 
 ## Test environments

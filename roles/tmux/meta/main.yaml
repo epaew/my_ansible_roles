@@ -1,4 +1,0 @@
----
-dependencies:
-  - role: private/base
-  - role: rbenv

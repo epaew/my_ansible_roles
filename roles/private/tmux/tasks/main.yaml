@@ -1,0 +1,26 @@
+---
+- name: apt install tmux
+  become: yes
+  apt:
+    name: tmux
+    state: latest
+- name: mkdir ~/.tmux/plugins
+  file:
+    path: "{{ tmux.dirs.plugins }}"
+    state: directory
+- name: git clone tmux-plugins
+  git:
+    depth: "{{ item.repo.depth }}"
+    dest: "{{ tmux.dirs.plugins }}/{{ item.name }}"
+    repo: "{{ item.repo.url }}"
+  with_items:
+    - "{{ tmux.plugins }}"
+- name: create symlink of tmux.conf
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - "{{ tmux.link_files }}"
+- name: install tmux plugins via tpm
+  shell: "{{ tmux.dirs.tpm }}/bin/install_plugins"
