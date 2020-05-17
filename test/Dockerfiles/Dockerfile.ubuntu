@@ -9,6 +9,7 @@ RUN apt-get update \
 
 ARG ROLE_NAME
 COPY roles/ ./
+COPY test/hosts ./
 COPY test/playbooks/$ROLE_NAME.yaml playbook.yaml
 
-RUN ansible-playbook playbook.yaml
+RUN ansible-playbook --inventory hosts playbook.yaml
