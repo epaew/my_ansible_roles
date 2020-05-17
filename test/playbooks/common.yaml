@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  connection: local
+  tags:
+    - test-common
+  roles:
+    - role: common

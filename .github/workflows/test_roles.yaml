@@ -1,0 +1,37 @@
+name: Test ansible roles
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  test-roles:
+    name: Test ansible roles
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        linux:
+          - distribution: ubuntu
+            version: xenial
+          - distribution: ubuntu
+            version: bionic
+          - distribution: ubuntu
+            version: focal
+        role:
+          - common
+          - nodenv
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker image for test ansible role
+        run: |
+          docker build -f test/Dockerfiles/Dockerfile.${{ matrix.linux.distribution }} \
+            --build-arg BASE_TAG=${{ matrix.linux.version }} \
+            --build-arg ROLE_NAME=${{ matrix.role }} \
+            .

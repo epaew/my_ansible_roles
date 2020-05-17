@@ -1,0 +1,13 @@
+# vim: ft=dockerfile:
+
+ARG BASE_TAG
+FROM ubuntu:$BASE_TAG
+
+RUN apt-get update \
+	&& apt-get install -y python3-pip python3-apt ansible
+
+ARG ROLE_NAME
+COPY roles/ ./
+COPY test/playbooks/$ROLE_NAME.yaml playbook.yaml
+
+RUN ansible-playbook playbook.yaml
