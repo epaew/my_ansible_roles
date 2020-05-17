@@ -1,5 +1,10 @@
 ---
 # This role does not work on WSL1
+- name: apt install docker-ce
+  become: yes
+  apt:
+    name: "{{ docker.apt.packages }}"
+    state: latest
 - name: apt add docker repository key
   become: yes
   apt_key:
@@ -9,11 +14,11 @@
   apt_repository:
     repo: "{{ item }}"
   with_items:
-    - "{{ apt.repos }}"
+    - "{{ docker.apt.repositories[ansible_distribution][ansible_distribution_major_version] }}"
 - name: apt install docker-ce
   become: yes
   apt:
-    name: "{{ apt.packages }}"
+    name: "{{ docker.apt.packages }}"
     state: latest
 - name: add user to docker group
   become: yes
@@ -30,6 +35,6 @@
 - name: install docker-compose from pip3
   pip:
     name: docker-compose
-    executable: pip3
+    executable: /usr/bin/pip3 # Use pip3 installed via apt
     extra_args: --user
     state: latest

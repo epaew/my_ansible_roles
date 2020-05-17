@@ -6,9 +6,6 @@ neovim:
       - python3-pip
     repositories:
       - ppa:neovim-ppa/stable
-  pip:
-    packages:
-      - pynvim
   dirs:
     dein: "~/.cache/dein/repos/github.com/Shougo/dein.vim"
     config:

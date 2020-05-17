@@ -14,8 +14,8 @@
     state: latest
 - name: install pip3 packages for neovim
   pip:
-    name: "{{ neovim.pip.packages }}"
-    executable: pip3
+    name: pynvim
+    executable: /usr/bin/pip3 # Use pip3 installed via apt
     extra_args: --user
     state: latest
 - name: mkdir ~/.cache/dein/repos/github.com/Shougo
