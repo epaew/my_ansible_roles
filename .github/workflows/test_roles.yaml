@@ -32,6 +32,7 @@ jobs:
           - nodenv
           - rbenv
           - rust
+          - zsh
 
     steps:
       - uses: actions/checkout@v2

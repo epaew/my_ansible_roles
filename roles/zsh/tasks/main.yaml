@@ -1,20 +1,13 @@
 ---
-- name: apt install zsh
-  become: yes
-  apt:
-    name:
-      - zsh
-    state: latest
-- name: create symlink of zshenv
-  file:
-    src: "{{ zsh.dirs.config.src }}"
-    dest: "{{ zsh.dirs.config.dest }}"
-    state: link
+- include: apt.yaml
+  when: ansible_distribution in ["Debian", "Ubuntu"]
+
 - name: git clone zsh-completions
   git:
-    repo: https://github.com/zsh-users/zsh-completions.git
-    dest: "{{ zsh.dirs.zsh_completions }}"
-    depth: 1
+    depth: "{{ zsh.zsh_completions.repo.depth }}"
+    dest: "{{ zsh.zsh_completions.dirs.dest }}"
+    repo: "{{ zsh.zsh_completions.repo.url }}"
+
 - name: set zsh as login shell
   become: yes
-  shell: "chsh -s '/usr/bin/zsh' {{ global.user.name }}"
+  shell: "chsh -s $(which zsh) {{ ansible_user_id }}"
