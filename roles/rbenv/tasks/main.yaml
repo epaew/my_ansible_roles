@@ -9,31 +9,48 @@
     state: latest
 - name: git clone rbenv
   git:
-    dest: "{{ rbenv.dirs.dest }}"
-    depth: "{{ rbenv.repo.depth }}"
-    repo: "{{ rbenv.repo.url }}"
+    dest: "{{ rbenv_root }}"
+    depth: "{{ rbenv_reposiory.depth }}"
+    repo: "{{ rbenv_reposiory.url }}"
 - name: compile rbenv
   shell: src/configure && make -C src
   args:
-    chdir: "{{ rbenv.dirs.dest }}"
+    chdir: "{{ rbenv_root }}"
 - name: mkdir ~/.rbenv/plugins
   file:
-    path: "{{ rbenv.dirs.dest }}/plugins"
+    path: "{{ rbenv_root }}/plugins"
     state: directory
-- name: git clone rbenv plugins
+- name: git clone ruby-build
   git:
-    dest: "{{ rbenv.dirs.dest }}/plugins/{{ item.name }}"
-    depth: "{{ item.repo.depth }}"
-    repo: "{{ item.repo.url }}"
+    dest: "{{ rbenv_root }}/plugins/ruby-build"
+    depth: "{{ ruby_build_repository.depth }}"
+    repo: "{{ ruby_build_repository.url }}"
+- name: git clone extra rbenv plugins
+  git:
+    dest: "{{ rbenv_root }}/plugins/{{ item.name }}"
+    depth: "{{ item.repository.depth }}"
+    repo: "{{ item.repository.url }}"
   with_items:
-      - "{{ rbenv.plugins }}"
+      - "{{ rbenv_plugins }}"
 
-- name: rbenv install
+- name: rbenv install global
   shell: |
-    PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
-    rbenv install {{ rbenv.ruby_version }}
-    rbenv global {{ rbenv.ruby_version }}
+    rbenv install {{ default_ruby_version }}
+    rbenv global {{ default_ruby_version }}
   args:
-    creates: "{{ rbenv.dirs.dest }}/versions/{{ rbenv.ruby_version }}"
-  when: rbenv.ruby_version is defined
+    creates: "{{ rbenv_root }}/versions/{{ default_ruby_version }}"
+  environment:
+    PATH: "{{ rbenv_root }}/bin:{{ ansible_env.PATH }}"
+  when: (default_ruby_version is defined) and (default_ruby_version|length > 0)
+
+- name: rbenv install extra
+  shell: |
+    eval "$(rbenv init -)"
+    rbenv install {{ item }}
+  args:
+    creates: "{{ rbenv_root }}/versions/{{ item }}"
+  environment:
+    PATH: "{{ rbenv_root }}/bin:{{ ansible_env.PATH }}"
+  with_items:
+    - "{{ extra_ruby_versions }}"

@@ -1,14 +1,13 @@
 ---
-rbenv:
-  dirs:
-    dest: ~/.rbenv
-  repo:
-    depth: 1
-    url: https://github.com/rbenv/rbenv.git
-  ruby_version: 2.7.1
+default_ruby_version: ''
+extra_ruby_versions: []
 
-  plugins:
-    - name: ruby-build
-      repo:
-        depth: 1
-        url: https://github.com/rbenv/ruby-build.git
+rbenv_root: "{{ ansible_env.HOME }}/.rbenv"
+rbenv_reposiory:
+  depth: 1
+  url: https://github.com/rbenv/rbenv.git
+rbenv_plugins: []
+
+ruby_build_repository:
+  depth: 1
+  url: https://github.com/rbenv/ruby-build.git
