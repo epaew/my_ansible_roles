@@ -1,21 +1,21 @@
 - name: git clone nodenv
   git:
-    repo: https://github.com/nodenv/nodenv.git
-    dest: "{{ nodenv.dirs.nodenv.dest }}"
-    depth: 1
+    dest: "{{ nodenv.dirs.dest }}"
+    depth: "{{ nodenv.repo.depth }}"
+    repo: "{{ nodenv.repo.url }}"
 - name: compile nodenv
   shell: src/configure && make -C src
   args:
-    chdir: "{{ nodenv.dirs.nodenv.dest }}"
+    chdir: "{{ nodenv.dirs.dest }}"
 - name: mkdir ~/.nodenv/plugins
   file:
-    path: "{{ nodenv.dirs.nodenv.plugins }}"
+    path: "{{ nodenv.dirs.dest }}/plugins"
     state: directory
 - name: git clone node-build
   git:
-    repo: https://github.com/nodenv/node-build.git
-    dest: "{{ nodenv.dirs.node_build }}"
-    depth: 1
+    dest: "{{ nodenv.dirs.dest }}/plugins/node-build"
+    depth: "{{ node_build.repo.depth }}"
+    repo: "{{ node_build.repo.url }}"
 - name: nodenv install
   shell: |
     PATH="$HOME/.nodenv/bin:$PATH"
@@ -23,16 +23,13 @@
     nodenv install {{ nodenv.node_version }}
     nodenv global {{ nodenv.node_version }}
   args:
-    creates: "{{ nodenv.dirs.nodenv.dest }}/versions/{{ nodenv.node_version }}"
+    creates: "{{ nodenv.dirs.dest }}/versions/{{ nodenv.node_version }}"
   when: nodenv.node_version is defined
 - name: install yarn
   npm:
-    name: "{{ item.name }}"
-    # executable: "{{ nodenv.dirs.nodenv.dest }}/versions/{{ nodenv.node_version }}/bin/npm"
+    name: yarn
     global: yes
     state: latest
   environment:
     PATH: "{{ ansible_env.HOME }}/.nodenv/versions/{{ nodenv.node_version }}/bin:{{ ansible_env.PATH }}"
-  with_items:
-    - "{{ nodenv.npm.packages }}"
   when: nodenv.node_version is defined
