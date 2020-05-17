@@ -5,7 +5,7 @@ nodenv:
       dest:  "~/.nodenv"
       plugins: "~/.nodenv/plugins"
     node_build: "~/.nodenv/plugins/node-build"
-  node_version: "12.16.2"
+  node_version: "12.16.3"
   npm:
     packages:
       - name: yarn
