@@ -27,6 +27,7 @@ jobs:
         role:
           - common
           - nodenv
+          - rust
 
     steps:
       - uses: actions/checkout@v2
