@@ -1,0 +1,16 @@
+---
+- debug:
+    var: fzf.dirs.dest
+- name: mkdir for fzf
+  file:
+    path: "{{ fzf.dirs.dest }}"
+    state: directory
+- name: clone git repository
+  git:
+    depth: "{{ fzf.repo.depth }}"
+    dest: "{{ fzf.dirs.dest }}"
+    repo: "{{ fzf.repo.url }}"
+- name: install fzf
+  shell: "{{ fzf.dirs.dest }}/install"
+  args:
+    creates: "{{ fzf.dirs.dest }}/bin/fzf"

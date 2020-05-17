@@ -58,19 +58,6 @@
     remote_src: yes
   with_items: "{{ base.dotfiles.copies }}"
 
-- name: mkdir for fzf
-  file:
-    path: "{{ base.dirs.fzf }}"
-    state: directory
-- name: clone junegunn/fzf.git
-  git:
-    repo: git@github.com:junegunn/fzf.git
-    dest: "{{ base.dirs.fzf }}"
-- name: install fzf
-  shell: "{{ base.dirs.fzf }}/install"
-  args:
-    creates: "{{ base.dirs.fzf }}/bin/fzf"
-
 - name: set bell style none
   copy:
     dest: ~/.inputrc

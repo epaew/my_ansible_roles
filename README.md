@@ -2,6 +2,7 @@
 
 ## Available roles
 - docker
+- fzf
 - neovim
 - nodenv
 - rbenv

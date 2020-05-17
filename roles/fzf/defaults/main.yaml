@@ -1,0 +1,7 @@
+---
+fzf:
+  dirs:
+    dest: ~/.fzf
+  repo:
+    depth: 1
+    url: https://github.com/junegunn/fzf.git
