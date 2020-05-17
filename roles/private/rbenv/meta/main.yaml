@@ -1,0 +1,16 @@
+---
+dependencies:
+  - role: rbenv
+    vars:
+      rbenv:
+        plugins:
+          - name: ruby-build
+            repo:
+              depth: 1
+              url: https://github.com/rbenv/ruby-build.git
+          - name: rbenv-default-gems
+            repo:
+              depth: 1
+              url: https://github.com/rbenv/rbenv-default-gems.git
+        ruby_version: ''
+  - role: private/dotfiles

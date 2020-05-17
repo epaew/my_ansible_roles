@@ -1,0 +1,16 @@
+---
+- name: create symlink of configs
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+      - "{{ rbenv.link_files }}"
+- name: rbenv install
+  shell: |
+    PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    rbenv install {{ rbenv.ruby_version }}
+    rbenv global {{ rbenv.ruby_version }}
+  args:
+    creates: "{{ rbenv.dirs.dest }}/versions/{{ rbenv.ruby_version }}"
