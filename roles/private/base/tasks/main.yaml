@@ -1,12 +1,4 @@
 ---
-- name: apt update/upgrade
-  become: yes
-  apt:
-    autoclean: yes
-    autoremove: yes
-    cache_valid_time: 3600
-    update_cache: yes
-    upgrade: safe
 - name: apt install common packages
   become: yes
   apt:
