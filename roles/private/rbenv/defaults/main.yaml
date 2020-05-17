@@ -1,5 +1,7 @@
 ---
 rbenv:
+  dirs:
+    dest: ~/.rbenv
   link_files:
     - src: ~/dotfiles/.gemrc
       dest: ~/.gemrc
