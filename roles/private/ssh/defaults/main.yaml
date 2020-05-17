@@ -1,22 +1,5 @@
 ---
-base:
-  apt:
-    packages:
-      - build-essential
-      - git
-      - language-pack-ja
-      - linux-headers-generic
-      - make
-      - ruby
-      - tig
-  dirs:
-    dotfiles: ~/dotfiles
-    home: "~"
-  dotfiles:
-    links:
-      - .tigrc
-    copies:
-      - .gitconfig
+ssh:
   known_hosts:
     domains:
       - github.com

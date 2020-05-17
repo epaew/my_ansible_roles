@@ -1,0 +1,13 @@
+---
+dotfiles:
+  dirs:
+    dest: ~/dotfiles
+  copy_files:
+    - src: ~/dotfiles/.gitconfig
+      dest: ~/.gitconfig
+  link_files:
+    - src: ~/dotfiles/.tigrc
+      dest: ~/.tigrc
+  repo:
+    depth: ''
+    url: git@github.com:epaew/dotfiles.git

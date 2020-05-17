@@ -1,0 +1,15 @@
+---
+common:
+  apt:
+    packages:
+      - build-essential
+      - language-pack-ja
+      - linux-headers-generic
+      - make
+      - tig
+  git:
+    config:
+      - name: user.name
+        value: epaew
+      - name: user.email
+        value: epaew.333@gmail.com
