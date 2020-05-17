@@ -1,3 +1,4 @@
+---
 - name: git clone nodenv
   git:
     dest: "{{ nodenv.dirs.dest }}"
@@ -11,11 +12,13 @@
   file:
     path: "{{ nodenv.dirs.dest }}/plugins"
     state: directory
-- name: git clone node-build
+- name: git clone nodenv plugins
   git:
-    dest: "{{ nodenv.dirs.dest }}/plugins/node-build"
-    depth: "{{ node_build.repo.depth }}"
-    repo: "{{ node_build.repo.url }}"
+    dest: "{{ nodenv.dirs.dest }}/plugins/{{ item.name }}"
+    depth: "{{ item.repo.depth }}"
+    repo: "{{ item.repo.url }}"
+  with_items:
+    - "{{ nodenv.plugins }}"
 - name: nodenv install
   shell: |
     PATH="$HOME/.nodenv/bin:$PATH"

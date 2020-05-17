@@ -6,7 +6,9 @@ nodenv:
     depth: 1
     url: https://github.com/nodenv/nodenv.git
   node_version: 12.16.3
-node_build:
-  repo:
-    depth: 1
-    url: https://github.com/nodenv/node-build.git
+
+  plugins:
+    - name: node-build
+      repo:
+        depth: 1
+        url: https://github.com/nodenv/node-build.git
