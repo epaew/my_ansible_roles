@@ -1,0 +1,5 @@
+---
+zsh:
+  link_files:
+    - src: ~/dotfiles/.zshenv
+      dest: ~/.zshenv
