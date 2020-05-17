@@ -1,45 +1,39 @@
+---
 - name: apt install ruby-build dependencies
   become: yes
   apt:
     name:
-      - git
       - libreadline-dev
       - libssl-dev
       - zlib1g-dev
     state: latest
 - name: git clone rbenv
   git:
-    repo: https://github.com/rbenv/rbenv.git
-    dest: "{{ rbenv.dirs.rbenv.dest }}"
-    depth: 1
+    dest: "{{ rbenv.dirs.dest }}"
+    depth: "{{ rbenv.repo.depth }}"
+    repo: "{{ rbenv.repo.url }}"
 - name: compile rbenv
   shell: src/configure && make -C src
   args:
-    chdir: "{{ rbenv.dirs.rbenv.dest }}"
+    chdir: "{{ rbenv.dirs.dest }}"
 - name: mkdir ~/.rbenv/plugins
   file:
-    path: "{{ rbenv.dirs.rbenv.plugins }}"
+    path: "{{ rbenv.dirs.dest }}/plugins"
     state: directory
 - name: git clone rbenv plugins
   git:
-    repo: "{{ item.repo }}"
-    dest: "{{ rbenv.dirs.rbenv.plugins }}/{{ item.name }}"
-    depth: 1
+    dest: "{{ rbenv.dirs.dest }}/plugins/{{ item.name }}"
+    depth: "{{ item.repo.depth }}"
+    repo: "{{ item.repo.url }}"
   with_items:
       - "{{ rbenv.plugins }}"
-- name: create symlink of configs
-  file:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-  with_items:
-      - "{{ rbenv.configs }}"
-- name: rbenv install ruby
+
+- name: rbenv install
   shell: |
     PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
     rbenv install {{ rbenv.ruby_version }}
     rbenv global {{ rbenv.ruby_version }}
   args:
-    creates: "{{ rbenv.dirs.rbenv.dest }}/versions/{{ rbenv.ruby_version }}"
+    creates: "{{ rbenv.dirs.dest }}/versions/{{ rbenv.ruby_version }}"
   when: rbenv.ruby_version is defined

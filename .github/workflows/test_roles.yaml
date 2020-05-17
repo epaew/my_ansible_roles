@@ -30,6 +30,7 @@ jobs:
           - fzf
           - neovim
           - nodenv
+          - rbenv
           - rust
 
     steps:

@@ -1,19 +1,14 @@
 ---
 rbenv:
   dirs:
-    rbenv:
-      dest: "~/.rbenv"
-      plugins: "~/.rbenv/plugins"
-  configs:
-    - src: "~/dotfiles/.gemrc"
-      dest: "~/.gemrc"
-    - src: "~/dotfiles/.pryrc"
-      dest: "~/.pryrc"
-    - src: "~/dotfiles/rbenv/default-gems"
-      dest: "~/.rbenv/default-gems"
+    dest: ~/.rbenv
+  repo:
+    depth: 1
+    url: https://github.com/rbenv/rbenv.git
+  ruby_version: 2.7.1
+
   plugins:
-    - name: "ruby-build"
-      repo: "https://github.com/rbenv/ruby-build.git"
-    - name: "rbenv-default-gems"
-      repo: "https://github.com/rbenv/rbenv-default-gems.git"
-  ruby_version: "2.6.3"
+    - name: ruby-build
+      repo:
+        depth: 1
+        url: https://github.com/rbenv/ruby-build.git
