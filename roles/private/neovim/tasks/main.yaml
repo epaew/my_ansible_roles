@@ -5,8 +5,10 @@
     state: directory
 - name: create symlink of nvim configs
   file:
-    src: "{{ neovim.dirs.config.src }}"
-    dest: ~/.config/nvim
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     state: link
+  with_items:
+    - "{{ neovim.link_files }}"
 - name: install nvim plugins
   shell: nvim -c ":silent! call dein#install() | :q"

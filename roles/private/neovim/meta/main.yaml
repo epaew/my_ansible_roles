@@ -1,4 +1,4 @@
 ---
 dependencies:
-  - role: neovim
-  - role: private/dotfiles
+  - role: ../neovim
+  - role: ./dotfiles

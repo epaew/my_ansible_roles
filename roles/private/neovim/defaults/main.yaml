@@ -1,4 +1,5 @@
 ---
 neovim:
-  dirs:
-    config: ~/dotfiles/config/nvim
+  link_files:
+    - src: ~/dotfiles/config/nvim
+      dest: ~/.config/nvim

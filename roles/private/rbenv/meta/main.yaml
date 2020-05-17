@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - role: rbenv
+  - role: ../rbenv
     vars:
       rbenv:
         plugins:
@@ -13,4 +13,4 @@ dependencies:
               depth: 1
               url: https://github.com/rbenv/rbenv-default-gems.git
         ruby_version: ''
-  - role: private/dotfiles
+  - role: ./dotfiles
