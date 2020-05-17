@@ -1,0 +1,4 @@
+---
+neovim:
+  dirs:
+    config: ~/dotfiles/config/nvim

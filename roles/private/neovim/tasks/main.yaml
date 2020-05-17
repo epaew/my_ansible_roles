@@ -1,0 +1,12 @@
+---
+- name: mkdir ~/.config
+  file:
+    path: ~/.config
+    state: directory
+- name: create symlink of nvim configs
+  file:
+    src: "{{ neovim.dirs.config.src }}"
+    dest: ~/.config/nvim
+    state: link
+- name: install nvim plugins
+  shell: nvim -c ":silent! call dein#install() | :q"
