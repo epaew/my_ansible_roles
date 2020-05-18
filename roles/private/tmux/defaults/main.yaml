@@ -1,12 +1,9 @@
 ---
-tmux:
-  dirs:
-    plugins: ~/.tmux/plugins
-  link_files:
-    - src: ~/dotfiles/.tmux.conf
-      dest: ~/.tmux.conf
-  plugins:
-    - name: tpm
-      repo:
-        depth: 1
-        url: https://github.com/tmux-plugins/tpm.git
+tmux_conf:
+  src: ~/dotfiles/.tmux.conf
+  dest: ~/.tmux.conf
+
+tpm_repository:
+  depth: 1
+  url: https://github.com/tmux-plugins/tpm.git
+tmux_plugins_root: "{{ ansible_env.HOME }}/.tmux/plugins"
