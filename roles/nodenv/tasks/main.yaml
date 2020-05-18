@@ -34,7 +34,9 @@
     creates: "{{ nodenv_root }}/versions/{{ default_node_version }}"
   environment:
     PATH: "{{ nodenv_root }}/bin:{{ ansible_env.PATH }}"
-  when: (default_node_version is defined) and (default_node_version|length > 0)
+  when:
+    - default_node_version is defined
+    - default_node_version|length > 0
 
 - name: nodenv install extra
   shell: |

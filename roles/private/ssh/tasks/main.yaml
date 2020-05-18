@@ -19,6 +19,9 @@
     method: POST
     status_code: 201,422
     url: https://api.github.com/user/keys
+  when:
+    - secrets.github_api_token is defined
+    - secrets.github_api_token|string|length > 0
 - name: register ssh public key to gitlab.com
   uri:
     body: "{{ api_body.stdout }}"
@@ -28,6 +31,9 @@
     method: POST
     status_code: 201,400
     url: https://gitlab.com/api/v4/user/keys
+  when:
+    - secrets.gitlab_api_token is defined
+    - secrets.gitlab_api_token|string|length > 0
 
 - name: ensure known hosts
   known_hosts:

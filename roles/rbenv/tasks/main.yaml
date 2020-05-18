@@ -42,7 +42,9 @@
     creates: "{{ rbenv_root }}/versions/{{ default_ruby_version }}"
   environment:
     PATH: "{{ rbenv_root }}/bin:{{ ansible_env.PATH }}"
-  when: (default_ruby_version is defined) and (default_ruby_version|length > 0)
+  when:
+    - default_ruby_version is defined
+    - default_ruby_version|length > 0
 
 - name: rbenv install extra
   shell: |
