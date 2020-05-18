@@ -1,7 +1,8 @@
 ---
 dotfiles_root: "{{ ansible_env.HOME }}/dotfiles"
 dotfiles_repository:
-    depth: 0
-    url: git@github.com:epaew/dotfiles.git
+  depth: 0
+  url: git@github.com:epaew/dotfiles.git
+
 dotfiles_to_copy: []
 dotfiles_to_link: []

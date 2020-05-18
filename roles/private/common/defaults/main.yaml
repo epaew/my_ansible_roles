@@ -19,3 +19,5 @@ git_configs:
 tig_config_file:
   src: ~/dotfiles/.tigrc
   dest: ~/.tigrc
+
+xdg_config_home: "{{ ansible_env.HOME }}/.config"

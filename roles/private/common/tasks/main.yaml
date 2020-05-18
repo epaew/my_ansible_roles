@@ -5,6 +5,11 @@
     content: |
       set bell-style none
 
+- name: mkdir $XDG_CONFIG_HOME
+  file:
+    path: "{{ xdg_config_home }}"
+    state: directory
+
 - name: apt install extra packages
   become: yes
   apt:

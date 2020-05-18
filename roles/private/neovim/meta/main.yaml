@@ -1,4 +1,8 @@
 ---
 dependencies:
-  - role: ../neovim
+  - role: ./common
   - role: ./dotfiles
+    vars:
+      dotfiles_to_link:
+        - "{{ neovim_config }}"
+  - role: ../neovim

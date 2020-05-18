@@ -1,5 +1,4 @@
 ---
-neovim:
-  link_files:
-    - src: ~/dotfiles/config/nvim
-      dest: ~/.config/nvim
+neovim_config:
+  src: ~/dotfiles/config/nvim
+  dest: ~/.config/nvim
