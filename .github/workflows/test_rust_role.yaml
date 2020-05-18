@@ -1,9 +1,14 @@
-name: Test ansible roles
+name: Test rust role
 
 on:
   pull_request:
     branches:
       - master
+    paths:
+      - .github/workflows/test_rust_role.yaml
+      - roles/common/**
+      - roles/rust/**
+      - test/**
   push:
     branches:
       - master
@@ -12,7 +17,7 @@ on:
 
 jobs:
   test-roles:
-    name: Test ansible roles
+    name: Test rust role
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -24,9 +29,6 @@ jobs:
             version: bionic
           - distribution: ubuntu
             version: focal
-        role:
-          # - docker # something wrong...
-          - zsh
 
     steps:
       - uses: actions/checkout@v2
@@ -34,5 +36,5 @@ jobs:
         run: |
           docker build -f test/Dockerfiles/Dockerfile.${{ matrix.linux.distribution }} \
             --build-arg BASE_TAG=${{ matrix.linux.version }} \
-            --build-arg ROLE_NAME=${{ matrix.role }} \
+            --build-arg ROLE_NAME=rust \
             .
