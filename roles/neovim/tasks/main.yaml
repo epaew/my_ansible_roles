@@ -11,10 +11,10 @@
 
 - name: mkdir for dein
   file:
-    path: "{{ dein.dirs.dest }}"
+    path: "{{ dein_checkout_path }}"
     state: directory
 - name: git clone dein
   git:
-    depth: "{{ dein.repo.depth }}"
-    dest: "{{ dein.dirs.dest }}"
-    repo: "{{ dein.repo.url }}"
+    depth: "{{ dein_repository.depth }}"
+    dest: "{{ dein_checkout_path }}"
+    repo: "{{ dein_repository.url }}"
