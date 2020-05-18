@@ -1,0 +1,40 @@
+name: Test neovim role
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/test_neovim_role.yaml
+      - roles/common/**
+      - roles/neovim/**
+      - test/**
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  test-roles:
+    name: Test neovim role
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        linux:
+          - distribution: ubuntu
+            version: xenial
+          - distribution: ubuntu
+            version: bionic
+          - distribution: ubuntu
+            version: focal
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker image for test ansible role
+        run: |
+          docker build -f test/Dockerfiles/Dockerfile.${{ matrix.linux.distribution }} \
+            --build-arg BASE_TAG=${{ matrix.linux.version }} \
+            --build-arg ROLE_NAME=neovim \
+            .
