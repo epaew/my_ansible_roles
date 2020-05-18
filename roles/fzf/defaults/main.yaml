@@ -1,7 +1,5 @@
 ---
-fzf:
-  dirs:
-    dest: ~/.fzf
-  repo:
-    depth: 1
-    url: https://github.com/junegunn/fzf.git
+fzf_root: "{{ ansible_env.HOME }}/.fzf"
+fzf_repository:
+  depth: 1
+  url: https://github.com/junegunn/fzf.git
