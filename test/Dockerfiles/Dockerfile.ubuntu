@@ -4,12 +4,22 @@ ARG BASE_TAG
 FROM ubuntu:$BASE_TAG
 
 RUN apt-get update \
-	&& apt-get install -y python3-pip python3-apt \
-	&& python3 -m pip install ansible
+	&& apt-get install -y python3-apt python3-pip sudo
 
+RUN groupadd user \
+	&& useradd -g user -md /home/user -s /usr/sbin/nologin user \
+	&& echo "user ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+USER user
+RUN mkdir /home/user/ansible \
+	&& python3 -m pip install --user ansible
+WORKDIR /home/user/ansible
+
+ENV PATH /home/user/.local/bin:$PATH
 ARG ROLE_NAME
-COPY roles/ ./
-COPY test/hosts ./
-COPY test/playbooks/$ROLE_NAME.yaml playbook.yaml
+
+COPY --chown=user:user roles/ ./
+COPY --chown=user:user test/hosts ./
+COPY --chown=user:user test/playbooks/$ROLE_NAME.yaml playbook.yaml
 
 RUN ansible-playbook --inventory hosts playbook.yaml
