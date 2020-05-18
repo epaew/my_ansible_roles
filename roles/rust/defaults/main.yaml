@@ -1,6 +1,3 @@
 ---
-rust:
-  dirs:
-    rustup_init: "/tmp/rustup-init.sh"
-  urls:
-    rustup_init: "https://sh.rustup.rs"
+rustup_init_path: /tmp/rustup-init.sh
+rustup_init_url: https://sh.rustup.rs

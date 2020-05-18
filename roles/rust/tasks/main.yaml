@@ -3,11 +3,29 @@
   shell: type rustup
   register: type_rustup
   failed_when: false
-- name: fetch rustup installer
+
+- name: fetch rustup-init.sh
   get_url:
-    url: "{{ rust.urls.rustup_init }}"
-    dest: "{{ rust.dirs.rustup_init }}"
+    url: "{{ rustup_init_url }}"
+    dest: "{{ rustup_init_path }}"
+  when: type_rustup.rc != 0
+- name: chmod +x rustup_init.sh
+  file:
+    mode: +x
+    path: "{{ rustup_init_path }}"
+    state: touch
   when: type_rustup.rc != 0
 - name: install rustup
-  command: "sh {{ rust.dirs.rustup_init }} -y -q"
+  shell: |
+    {{ rustup_init_path }} -y -q
   when: type_rustup.rc != 0
+- name: remove rustup_init.sh
+  file:
+    path: "{{ rustup_init_path }}"
+    state: absent
+
+- name: update rustup
+  shell: |
+    rustup self update
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
