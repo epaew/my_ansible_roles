@@ -1,9 +1,13 @@
-name: Test ansible roles
+name: Test common role
 
 on:
   pull_request:
     branches:
       - master
+    paths:
+      - .github/workflows/test_common_role.yaml
+      - roles/common/**
+      - test/**
   push:
     branches:
       - master
@@ -12,7 +16,7 @@ on:
 
 jobs:
   test-roles:
-    name: Test ansible roles
+    name: Test common role
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -24,14 +28,6 @@ jobs:
             version: bionic
           - distribution: ubuntu
             version: focal
-        role:
-          # - docker # something wrong...
-          - fzf
-          - neovim
-          - nodenv
-          - rbenv
-          - rust
-          - zsh
 
     steps:
       - uses: actions/checkout@v2
@@ -39,5 +35,5 @@ jobs:
         run: |
           docker build -f test/Dockerfiles/Dockerfile.${{ matrix.linux.distribution }} \
             --build-arg BASE_TAG=${{ matrix.linux.version }} \
-            --build-arg ROLE_NAME=${{ matrix.role }} \
+            --build-arg ROLE_NAME=common \
             .
