@@ -1,16 +1,8 @@
 ---
 dependencies:
+  - role: ./dotfiles
+    vars:
+      dotfiles_to_link: "{{ rbenv_configs }}"
   - role: ../rbenv
     vars:
-      rbenv:
-        plugins:
-          - name: ruby-build
-            repo:
-              depth: 1
-              url: https://github.com/rbenv/ruby-build.git
-          - name: rbenv-default-gems
-            repo:
-              depth: 1
-              url: https://github.com/rbenv/rbenv-default-gems.git
-        ruby_version: ''
-  - role: ./dotfiles
+      rbenv_plugins: "{{ extra_rbenv_plugins }}"
