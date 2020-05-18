@@ -5,3 +5,7 @@
     - test-nodenv
   roles:
     - role: nodenv
+      vars:
+        default_node_version: 12.16.3
+        extra_node_versions:
+          - 14.2.0

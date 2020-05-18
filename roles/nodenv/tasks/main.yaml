@@ -1,38 +1,48 @@
 ---
 - name: git clone nodenv
   git:
-    dest: "{{ nodenv.dirs.dest }}"
-    depth: "{{ nodenv.repo.depth }}"
-    repo: "{{ nodenv.repo.url }}"
+    dest: "{{ nodenv_root }}"
+    depth: "{{ nodenv_reposiory.depth }}"
+    repo: "{{ nodenv_reposiory.url }}"
 - name: compile nodenv
   shell: src/configure && make -C src
   args:
-    chdir: "{{ nodenv.dirs.dest }}"
+    chdir: "{{ nodenv_root }}"
 - name: mkdir ~/.nodenv/plugins
   file:
-    path: "{{ nodenv.dirs.dest }}/plugins"
+    path: "{{ nodenv_root }}/plugins"
     state: directory
-- name: git clone nodenv plugins
+- name: git clone node-build
   git:
-    dest: "{{ nodenv.dirs.dest }}/plugins/{{ item.name }}"
-    depth: "{{ item.repo.depth }}"
-    repo: "{{ item.repo.url }}"
+    dest: "{{ nodenv_root }}/plugins/node-build"
+    depth: "{{ node_build_repository.depth }}"
+    repo: "{{ node_build_repository.url }}"
+- name: git clone extra nodenv plugins
+  git:
+    dest: "{{ nodenv_root }}/plugins/{{ item.name }}"
+    depth: "{{ item.repository.depth }}"
+    repo: "{{ item.repository.url }}"
   with_items:
-    - "{{ nodenv.plugins }}"
-- name: nodenv install
+      - "{{ nodenv_plugins }}"
+
+- name: nodenv install global
   shell: |
-    PATH="$HOME/.nodenv/bin:$PATH"
     eval "$(nodenv init -)"
-    nodenv install {{ nodenv.node_version }}
-    nodenv global {{ nodenv.node_version }}
+    nodenv install {{ default_node_version }}
+    nodenv global {{ default_node_version }}
   args:
-    creates: "{{ nodenv.dirs.dest }}/versions/{{ nodenv.node_version }}"
-  when: nodenv.node_version is defined
-- name: install yarn
-  npm:
-    name: yarn
-    global: yes
-    state: latest
+    creates: "{{ nodenv_root }}/versions/{{ default_node_version }}"
   environment:
-    PATH: "{{ ansible_env.HOME }}/.nodenv/versions/{{ nodenv.node_version }}/bin:{{ ansible_env.PATH }}"
-  when: nodenv.node_version is defined
+    PATH: "{{ nodenv_root }}/bin:{{ ansible_env.PATH }}"
+  when: (default_node_version is defined) and (default_node_version|length > 0)
+
+- name: nodenv install extra
+  shell: |
+    eval "$(nodenv init -)"
+    nodenv install {{ item }}
+  args:
+    creates: "{{ nodenv_root }}/versions/{{ item }}"
+  environment:
+    PATH: "{{ nodenv_root }}/bin:{{ ansible_env.PATH }}"
+  with_items:
+    - "{{ extra_node_versions }}"

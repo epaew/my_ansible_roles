@@ -1,14 +1,13 @@
 ---
-nodenv:
-  dirs:
-    dest: ~/.nodenv
-  repo:
-    depth: 1
-    url: https://github.com/nodenv/nodenv.git
-  node_version: 12.16.3
+default_node_version: ''
+extra_node_versions: []
 
-  plugins:
-    - name: node-build
-      repo:
-        depth: 1
-        url: https://github.com/nodenv/node-build.git
+nodenv_root: "{{ ansible_env.HOME }}/.nodenv"
+nodenv_reposiory:
+  depth: 1
+  url: https://github.com/nodenv/nodenv.git
+nodenv_plugins: []
+
+node_build_repository:
+  depth: 1
+  url: https://github.com/nodenv/node-build.git
