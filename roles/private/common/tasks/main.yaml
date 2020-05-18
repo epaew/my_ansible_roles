@@ -5,10 +5,10 @@
     content: |
       set bell-style none
 
-- name: apt install common packages
+- name: apt install extra packages
   become: yes
   apt:
-    name: "{{ common.apt.packages }}"
+    name: "{{ extra_apt_packages }}"
     state: latest
 
 - name: set global git config
@@ -17,4 +17,4 @@
     scope: global
     value: "{{ item.value }}"
   with_items:
-    - "{{ common.git.config }}"
+    - "{{ git_configs }}"

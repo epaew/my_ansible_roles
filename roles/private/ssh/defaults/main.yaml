@@ -1,9 +1,8 @@
 ---
-ssh:
-  known_hosts:
-    domains:
-      - github.com
-      - gitlab.com
-  secrets:
-    github_token: ''
-    gitlab_token: ''
+known_hosts:
+  - github.com
+  - gitlab.com
+
+secrets:
+  github_api_token: ''
+  gitlab_api_token: ''

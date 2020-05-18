@@ -1,15 +1,21 @@
 ---
-common:
-  apt:
-    packages:
-      - build-essential
-      - language-pack-ja
-      - linux-headers-generic
-      - make
-      - tig
-  git:
-    config:
-      - name: user.name
-        value: epaew
-      - name: user.email
-        value: epaew.333@gmail.com
+extra_apt_packages:
+  - build-essential
+  - language-pack-ja
+  - linux-headers-generic
+  - make
+  - tig
+
+git_config_file:
+  src: ~/dotfiles/.gitconfig
+  dest: ~/.gitconfig
+
+git_configs:
+  - name: user.name
+    value: epaew
+  - name: user.email
+    value: epaew.333@gmail.com
+
+tig_config_file:
+  src: ~/dotfiles/.tigrc
+  dest: ~/.tigrc

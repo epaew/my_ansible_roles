@@ -1,13 +1,7 @@
 ---
-dotfiles:
-  dirs:
-    dest: ~/dotfiles
-  copy_files:
-    - src: ~/dotfiles/.gitconfig
-      dest: ~/.gitconfig
-  link_files:
-    - src: ~/dotfiles/.tigrc
-      dest: ~/.tigrc
-  repo:
-    depth: ''
+dotfiles_root: "{{ ansible_env.HOME }}/dotfiles"
+dotfiles_repository:
+    depth: 0
     url: git@github.com:epaew/dotfiles.git
+dotfiles_to_copy: []
+dotfiles_to_link: []

@@ -1,18 +1,18 @@
 ---
 - name: clone epaew/dotfiles.git
   git:
-    depth: "{{ dotfiles.repo.depth }}"
-    dest: "{{ dotfiles.dirs.dest }}"
-    repo: "{{ dotfiles.repo.url }}"
+    depth: "{{ dotfiles_repository.depth }}"
+    dest: "{{ dotfiles_root }}"
+    repo: "{{ dotfiles_repository.url }}"
 - name: create copy of each dotfiles
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     remote_src: yes
-  with_items: "{{ dotfiles.copy_files }}"
+  with_items: "{{ dotfiles_to_copy }}"
 - name: create symlink of each dotfiles
   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
-  with_items: "{{ dotfiles.link_files }}"
+  with_items: "{{ dotfiles_to_link }}"

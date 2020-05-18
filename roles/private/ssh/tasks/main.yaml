@@ -15,7 +15,7 @@
     body_format: json
     headers:
       Accept: "application/vnd.github.v3+json"
-      Authorization: "token {{ ssh.secrets.github_token }}"
+      Authorization: "token {{ secrets.github_api_token }}"
     method: POST
     status_code: 201,422
     url: https://api.github.com/user/keys
@@ -24,15 +24,15 @@
     body: "{{ api_body.stdout }}"
     body_format: json
     headers:
-      Private-Token: "{{ ssh.secrets.gitlab_token }}"
+      Private-Token: "{{ secrets.gitlab_api_token }}"
     method: POST
     status_code: 201,400
     url: https://gitlab.com/api/v4/user/keys
 
-- name: ensure github.com/gitlab.com is a known host
+- name: ensure known hosts
   known_hosts:
     name: "{{ item }}"
     key: "{{ lookup('pipe', 'ssh-keyscan -H ' + item) }}"
     hash_host: yes
   with_items:
-    - "{{ ssh.known_hosts.domains }}"
+    - "{{ known_hosts }}"

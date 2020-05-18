@@ -1,3 +1,8 @@
 ---
 dependencies:
-  - role: ../common
+  - role: ./dotfiles
+    vars:
+      dotfiles_to_copy:
+        - "{{ git_config_file }}"
+      dotfiles_to_link:
+        - "{{ tig_config_file }}"
