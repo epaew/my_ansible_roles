@@ -4,9 +4,9 @@
 
 - name: git clone zsh-completions
   git:
-    depth: "{{ zsh.zsh_completions.repo.depth }}"
-    dest: "{{ zsh.zsh_completions.dirs.dest }}"
-    repo: "{{ zsh.zsh_completions.repo.url }}"
+    depth: "{{ zsh_completions_repository.depth }}"
+    dest: "{{ zsh_completions_checkout_path }}"
+    repo: "{{ zsh_completions_repository.url }}"
 
 - name: set zsh as login shell
   become: yes

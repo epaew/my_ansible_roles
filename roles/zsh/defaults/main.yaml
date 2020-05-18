@@ -1,8 +1,5 @@
 ---
-zsh:
-  zsh_completions:
-    dirs:
-      dest: ~/.zsh-completions
-    repo:
-      depth: 1
-      url: https://github.com/zsh-users/zsh-completions.git
+zsh_completions_checkout_path: "{{ ansible_env.HOME }}/.zsh-completions"
+zsh_completions_repository:
+  depth: 1
+  url: https://github.com/zsh-users/zsh-completions.git
