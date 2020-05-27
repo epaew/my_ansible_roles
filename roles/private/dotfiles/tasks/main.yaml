@@ -4,12 +4,7 @@
     depth: "{{ dotfiles_repository.depth }}"
     dest: "{{ dotfiles_root }}"
     repo: "{{ dotfiles_repository.url }}"
-- name: create copy of each dotfiles
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    remote_src: yes
-  with_items: "{{ dotfiles_to_copy }}"
+    version: "{{ dotfiles_repository.branch }}"
 - name: create symlink of each dotfiles
   file:
     src: "{{ item.src }}"
