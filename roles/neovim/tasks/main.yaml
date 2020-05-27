@@ -18,3 +18,4 @@
     depth: "{{ dein_repository.depth }}"
     dest: "{{ dein_checkout_path }}"
     repo: "{{ dein_repository.url }}"
+    version: "{{ dein_repository.branch }}"
