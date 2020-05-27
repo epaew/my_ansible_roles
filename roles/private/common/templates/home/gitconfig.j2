@@ -1,0 +1,21 @@
+[core]
+	autoCRLF = input
+[diff]
+	algorithm = histogram
+	tool = vimdiff
+[fetch]
+	prune = true
+[init]
+	templatedir = ~/dotfiles/git_template
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
+	keepBackup = false
+{% for config in git_configs %}
+[{{ config.table }}]
+{% for row in config.rows %}
+	{{ row.key }} = {{ row.value }}
+{% endfor %}
+{% endfor %}

@@ -1,5 +1,6 @@
 ---
 dein_checkout_path: "{{ ansible_env.HOME }}/.cache/dein/repos/github.com/Shougo/dein.vim"
 dein_repository:
-  depth: 1
   url: https://github.com/Shougo/dein.vim.git
+  branch: master
+  depth: 1

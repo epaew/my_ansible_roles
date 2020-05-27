@@ -13,4 +13,5 @@
     name:
       - curl
       - git
+      - make
     state: latest
