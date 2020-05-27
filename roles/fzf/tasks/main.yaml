@@ -8,6 +8,7 @@
     depth: "{{ fzf_repository.depth }}"
     dest: "{{ fzf_root }}"
     repo: "{{ fzf_repository.url }}"
+    version: "{{ fzf_repository.branch }}"
 - name: install fzf
   shell: "{{ fzf_root }}/install"
   args:
