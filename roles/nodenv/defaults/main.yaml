@@ -4,10 +4,19 @@ extra_node_versions: []
 
 nodenv_root: "{{ ansible_env.HOME }}/.nodenv"
 nodenv_reposiory:
-  depth: 1
   url: https://github.com/nodenv/nodenv.git
-nodenv_plugins: []
+  branch: master
 
-node_build_repository:
-  depth: 1
-  url: https://github.com/nodenv/node-build.git
+nodenv_required_plugins:
+  - name: node-build
+    repository:
+      url: https://github.com/nodenv/node-build.git
+      branch: master
+  - name: nodenv-default-packages
+    repository:
+      url: https://github.com/nodenv/nodenv-default-packages.git
+      branch: master
+nodenv_extra_plugins: []
+
+preinstalled_node_packages:
+  - yarn

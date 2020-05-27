@@ -4,10 +4,24 @@ extra_ruby_versions: []
 
 rbenv_root: "{{ ansible_env.HOME }}/.rbenv"
 rbenv_reposiory:
-  depth: 1
   url: https://github.com/rbenv/rbenv.git
-rbenv_plugins: []
+  branch: master
 
-ruby_build_repository:
-  depth: 1
-  url: https://github.com/rbenv/ruby-build.git
+rbenv_required_plugins:
+  - name: ruby-build
+    repository:
+      url: https://github.com/rbenv/ruby-build.git
+      branch: master
+  - name: rbenv-default-gems
+    repository:
+      url: https://github.com/rbenv/rbenv-default-gems.git
+      branch: master
+rbenv_extra_plugins: []
+
+preinstalled_ruby_gems:
+  - bundler
+  - pry
+  - rake
+  - rubocop
+  - rubocop-performance
+  - solargraph

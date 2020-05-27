@@ -4,5 +4,3 @@ dependencies:
     vars:
       dotfiles_to_link: "{{ rbenv_configs }}"
   - role: ../rbenv
-    vars:
-      rbenv_plugins: "{{ extra_rbenv_plugins }}"

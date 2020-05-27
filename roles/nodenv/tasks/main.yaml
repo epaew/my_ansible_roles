@@ -2,8 +2,9 @@
 - name: git clone nodenv
   git:
     dest: "{{ nodenv_root }}"
-    depth: "{{ nodenv_reposiory.depth }}"
+    depth: 1
     repo: "{{ nodenv_reposiory.url }}"
+    version: "{{ nodenv_reposiory.branch }}"
 - name: compile nodenv
   shell: src/configure && make -C src
   args:
@@ -12,18 +13,19 @@
   file:
     path: "{{ nodenv_root }}/plugins"
     state: directory
-- name: git clone node-build
-  git:
-    dest: "{{ nodenv_root }}/plugins/node-build"
-    depth: "{{ node_build_repository.depth }}"
-    repo: "{{ node_build_repository.url }}"
-- name: git clone extra nodenv plugins
+- name: git clone nodenv plugins
   git:
     dest: "{{ nodenv_root }}/plugins/{{ item.name }}"
-    depth: "{{ item.repository.depth }}"
+    depth: 1
     repo: "{{ item.repository.url }}"
+    version: "{{ item.repository.branch }}"
   with_items:
-      - "{{ nodenv_plugins }}"
+      - "{{ nodenv_required_plugins }}"
+      - "{{ nodenv_extra_plugins }}"
+- name: replace ~/.nodenv/default-packages
+  template:
+    src: nodenv/default-packages.j2
+    dest: "{{ nodenv_root }}/default-packages"
 
 - name: nodenv install global
   shell: |
